@@ -2,6 +2,8 @@ package com.alvaromenezes.example.connection;
 
 import java.io.IOException;
 
+import com.alvaromenezes.example.controller.ProgressListener;
+
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
 import okio.Buffer;
@@ -12,7 +14,7 @@ import okio.Source;
 
 /**
  * 
- * @author alvaromenezes based on
+ * @author Alvaro Menezes 27/05/20017 based on
  *         https://github.com/square/okhttp/blob/master/samples/guide/src/main/java/okhttp3/recipes/Progress.java
  *
  */

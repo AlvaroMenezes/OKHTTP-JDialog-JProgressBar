@@ -4,7 +4,7 @@ import com.alvaromenezes.example.view.CustomForm;
 
 /**
  * 
- * @author alvaromenezes 27/05/2017
+ * @author Alvaro Menezes 27/05/2017
  *
  */
 public class Main {

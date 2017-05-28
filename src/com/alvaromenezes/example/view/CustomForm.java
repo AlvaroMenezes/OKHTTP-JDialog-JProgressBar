@@ -13,11 +13,13 @@ import com.alvaromenezes.example.controller.CustomFormController;
 
 /**
  * 
- * @author alvaromenezes 27/05/2017
+ * @author Alvaro Menezes 27/05/2017
  *
  */
 public class CustomForm extends JFrame implements ActionListener {
 
+	private static final long serialVersionUID = 1L;
+	
 	private JButton btRun;
 	private JTextField txtURL;
 	private JLabel url;

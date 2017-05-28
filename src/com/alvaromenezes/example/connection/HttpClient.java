@@ -2,6 +2,8 @@ package com.alvaromenezes.example.connection;
 
 import java.io.IOException;
 
+import com.alvaromenezes.example.controller.ProgressListener;
+
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -9,16 +11,16 @@ import okhttp3.Response;
 
 /**
  * 
- * @author alvaromenezes 27/05/2017 based on based on
+ * @author Alvaro Menezes 27/05/2017 based on 
  *         https://github.com/square/okhttp/blob/master/samples/guide/src/main/java/okhttp3/recipes/Progress.java
  *
  */
-public class Connection {
+public class HttpClient {
 
 	private String url;
 	private ProgressListener progressListener;
 
-	public Connection(String url, ProgressListener progressListener) {
+	public HttpClient(String url, ProgressListener progressListener) {
 		this.url = url;
 		this.progressListener = progressListener;
 	}
