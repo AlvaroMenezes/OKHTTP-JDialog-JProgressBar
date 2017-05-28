@@ -21,7 +21,7 @@ public class CustomForm extends JFrame implements ActionListener {
 	private JButton btRun;
 	private JTextField txtURL;
 	private JLabel url;
-	
+
 	private CustomFormController ctrl;
 
 	public CustomForm() {
@@ -35,7 +35,7 @@ public class CustomForm extends JFrame implements ActionListener {
 		setSize(450, 200);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		ctrl = new CustomFormController(this);
 	}
 
@@ -51,8 +51,8 @@ public class CustomForm extends JFrame implements ActionListener {
 		txtURL = new JTextField(30);
 
 		String url = "http://api.wunderground.com/api/57dd9039b81a9c21/conditions/q/CA/San_Francisco.json";
-		txtURL.setText(url);
-		// txtURL.setText("https://publicobject.com/helloworld.txt");
+		// txtURL.setText(url);
+		txtURL.setText("https://publicobject.com/helloworld.txt");
 		btRun = new JButton("  RUN  ");
 		btRun.addActionListener(this);
 	}

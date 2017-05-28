@@ -1,7 +1,8 @@
 package com.alvaromenezes.example.controller;
 
+import javax.swing.SwingWorker;
+
 import com.alvaromenezes.example.connection.Connection;
-import com.alvaromenezes.example.connection.ProgressListener;
 import com.alvaromenezes.example.view.CustomDialog;
 import com.alvaromenezes.example.view.CustomForm;
 
@@ -10,7 +11,7 @@ import com.alvaromenezes.example.view.CustomForm;
  * @author alvaromenezes 27/05/2017
  *
  */
-public class CustomFormController implements ProgressListener {
+public class CustomFormController {
 
 	private CustomForm view;
 	private CustomDialog dlg;
@@ -19,38 +20,74 @@ public class CustomFormController implements ProgressListener {
 		this.view = view;
 	}
 
-	public void runAction() throws Exception {
+	public void runAction() {
 
 		dlg = new CustomDialog(view);
 		dlg.setVisible(true);
-	//	Connection conn = new Connection(view.getURL(), this);
-		//conn.run();
-
+		new Task(view.getURL(), dlg).execute();
 	}
 
-	@Override
-	public void update(long bytesRead, long contentLength, boolean done) {
+	private void testProgress() throws Exception {
 
-		int size = (int) ((100 * bytesRead) / contentLength);
-		System.out.println(size);
-		dlg.progressBar.setValue(size);
-		dlg.progressBar.setString(String.format("%d%%", size));
+		for (int i = 0; i <= 100; i = i + 10) {
 
-		if (done) {
+			dlg.progressBar.setValue(i);
+			dlg.progressBar.setString(String.format("%d%%", i));
+			Thread.sleep(200);
 
-			dlg.setVisible(false);
-			dlg.dispose();
 		}
 
 	}
 
-	/*
-	 * final ProgressListener progressListener = new ProgressListener() {
-	 * 
-	 * @Override public void update(long bytesRead, long contentLength, boolean
-	 * done) { System.out.println(bytesRead); System.out.println(contentLength);
-	 * System.out.println(done); System.out.format("%d%% done\n", (100 *
-	 * bytesRead) / contentLength); } };
-	 */
+	private class Task extends SwingWorker<String, Object> {
+
+		private String url;
+		private CustomDialog dlg;
+
+		public Task(String url, CustomDialog dlg) {
+			this.url = url;
+			this.dlg = dlg;
+		}
+
+		@Override
+		protected String doInBackground() throws Exception {
+			Connection conn = new Connection(view.getURL(), dlg);
+			return conn.run();
+		}
+
+		@Override
+		protected void done() {
+			dlg.dispose();
+			// dlg.resetProgress();
+			try {
+				new TaskPrintSlow(get()).execute();
+			} catch (Exception e) {
+			}
+
+		}
+	}
+
+	private class TaskPrintSlow extends SwingWorker {
+
+		private String text;
+		private CustomDialog dlg;
+
+		public TaskPrintSlow(String text) {
+			this.text = text;
+		}
+
+		@Override
+		protected Void doInBackground() throws Exception {
+
+			String textStr[] = text.split("\\r\\n|\\n|\\r");
+
+			for (String line : textStr) {
+				System.out.println(line);
+				Thread.sleep(200);
+			}
+
+			return null;
+		}
+	}
 
 }

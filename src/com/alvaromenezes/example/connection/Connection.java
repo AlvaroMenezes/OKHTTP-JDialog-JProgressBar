@@ -23,7 +23,7 @@ public class Connection {
 		this.progressListener = progressListener;
 	}
 
-	public void run() throws Exception {
+	public String run() throws Exception {
 		Request request = new Request.Builder().url(url).build();
 
 		OkHttpClient client = new OkHttpClient.Builder().addNetworkInterceptor(new Interceptor() {
@@ -38,7 +38,7 @@ public class Connection {
 			if (!response.isSuccessful())
 				throw new IOException("Unexpected code " + response);
 
-			// System.out.println(response.body().string());
+			return response.body().string();
 		}
 	}
 
